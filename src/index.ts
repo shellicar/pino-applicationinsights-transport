@@ -1,8 +1,4 @@
-import { createTransport } from './createTransport';
 import { createLogger } from './createLogger';
+import { createTransport } from './createTransport';
 
-export {
-  createTransport as default,
-  createLogger,
-  createTransport,
-};
+export { createTransport as default, createLogger, createTransport };

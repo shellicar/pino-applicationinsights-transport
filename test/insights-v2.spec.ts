@@ -1,11 +1,10 @@
-import { matchers, object } from 'testdouble';
-import { clientV2 } from './client';
-import { createLogger } from '../src/createLogger';
-import { validate } from './validate';
 import { SeverityLevel } from 'applicationinsightsv2/out/Declarations/Contracts';
+import { matchers, object } from 'testdouble';
+import { createLogger } from '../src/createLogger';
+import { clientV2 } from './client';
+import { validate } from './validate';
 
 describe('insights v2', () => {
-
   it('logs error level', async () => {
     const mock = object(clientV2);
 
@@ -16,8 +15,12 @@ describe('insights v2', () => {
       },
     });
     logger.error('hello');
-    await validate(() => mock.trackTrace(matchers.contains({
-      severity: SeverityLevel.Error,
-    })));
+    await validate(() =>
+      mock.trackTrace(
+        matchers.contains({
+          severity: SeverityLevel.Error,
+        }),
+      ),
+    );
   });
 });

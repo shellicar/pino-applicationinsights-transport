@@ -1,5 +1,5 @@
 import { createLogger } from '@shellicar/pino-applicationinsights-transport';
-import { setup, defaultClient } from 'applicationinsights';
+import { defaultClient, setup } from 'applicationinsights';
 
 // Setup app insights
 setup().start();

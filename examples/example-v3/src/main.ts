@@ -1,1 +1,2 @@
 import './defaultImport';
+import './pathImport';

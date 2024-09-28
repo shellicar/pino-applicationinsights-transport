@@ -8,21 +8,25 @@ describe('default pino', () => {
   });
 
   it('logs error', () => {
-    const logger = pino(PinoPretty({
-      customPrettifiers: {
-        time: () => '',
-      },
-    }));
+    const logger = pino(
+      PinoPretty({
+        customPrettifiers: {
+          time: () => '',
+        },
+      }),
+    );
     const err = new Error('oh noes');
     logger.error(err);
   });
 
   it('logs error with message', () => {
-    const logger = pino(PinoPretty({
-      customPrettifiers: {
-        time: () => '',
-      },
-    }));
+    const logger = pino(
+      PinoPretty({
+        customPrettifiers: {
+          time: () => '',
+        },
+      }),
+    );
     const err = new Error('oh noes');
     logger.error(err, 'oh dear');
   });

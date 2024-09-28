@@ -1,10 +1,9 @@
 import type { TelemetryClient as TelemetryClientV2 } from 'applicationinsightsv2';
-import type { KnownSeverityLevel, ExceptionTelemetry as ExceptionTelemetryV3, TelemetryClient as TelemetryClientV3, TraceTelemetry as TraceTelemetryV3 } from 'applicationinsightsv3';
-import type { SeverityLevel, ExceptionTelemetry as ExceptionTelemetryV2, TraceTelemetry as TraceTelemetryV2 } from 'applicationinsightsv2/out/Declarations/Contracts';
-import { levels, type Level, type LevelWithSilentOrString } from 'pino';
+import type { ExceptionTelemetry as ExceptionTelemetryV2, SeverityLevel, TraceTelemetry as TraceTelemetryV2 } from 'applicationinsightsv2/out/Declarations/Contracts';
+import type { ExceptionTelemetry as ExceptionTelemetryV3, KnownSeverityLevel, TelemetryClient as TelemetryClientV3, TraceTelemetry as TraceTelemetryV3 } from 'applicationinsightsv3';
+import { type Level, type LevelWithSilentOrString, levels } from 'pino';
 
-
-const createError = (serializedError: any): { error: Error, properties:  Record<string, any> } => {
+const createError = (serializedError: any): { error: Error; properties: Record<string, any> } => {
   const { message, stack, name, cause, ...properties } = serializedError;
 
   const error = new Error(message);
@@ -15,13 +14,15 @@ const createError = (serializedError: any): { error: Error, properties:  Record<
   return { error, properties };
 };
 
-export type PinoApplicationInsightsTransportOptions = {
-  client: TelemetryClientV2;
-  version: 2,
-} | {
-  client: TelemetryClientV3;
-  version: 3,
-}
+export type PinoApplicationInsightsTransportOptions =
+  | {
+      client: TelemetryClientV2;
+      version: 2;
+    }
+  | {
+      client: TelemetryClientV3;
+      version: 3;
+    };
 
 const severityMapV2: Record<LevelWithSilentOrString, SeverityLevel | undefined> = {
   trace: 0,
@@ -43,12 +44,15 @@ const severityMapV3: Record<LevelWithSilentOrString, KnownSeverityLevel | undefi
 };
 
 export class PinoApplicationInsightsTransport {
-  constructor(private readonly options: PinoApplicationInsightsTransportOptions, private readonly defaultLevel: LevelWithSilentOrString) {}
+  constructor(
+    private readonly options: PinoApplicationInsightsTransportOptions,
+    private readonly defaultLevel: LevelWithSilentOrString,
+  ) {}
 
   private mapSeverity(level: any, version: number): SeverityLevel | KnownSeverityLevel | undefined {
     const label: Level = levels.labels[level] as Level;
     return version === 2 ? (severityMapV2[label] ?? severityMapV2[this.defaultLevel]) : (severityMapV3[label] ?? severityMapV3[this.defaultLevel]);
-  };
+  }
 
   private trackException(data: any, severity: SeverityLevel | KnownSeverityLevel) {
     const { msg, time, err, ...props } = data;
@@ -58,8 +62,8 @@ export class PinoApplicationInsightsTransport {
     const telemetry = {
       time: new Date(time),
       exception: errorDetails.error,
-      properties: { 
-        message: msg, 
+      properties: {
+        message: msg,
         ...errorDetails.properties,
         ...props,
       },
@@ -103,4 +107,3 @@ export class PinoApplicationInsightsTransport {
     }
   }
 }
-

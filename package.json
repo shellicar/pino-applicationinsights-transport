@@ -1,6 +1,6 @@
 {
   "name": "@shellicar/pino-applicationinsights-transport",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "Azure Application Insights transport for pino",
   "packageManager": "pnpm@9.11.0",
@@ -9,63 +9,71 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "node": {
-        "import": "./dist/index.mjs",
-        "require": "./dist/index.js"
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       },
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
     },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
+    "./createLogger": {
+      "require": {
+        "types": "./dist/createLogger.d.ts",
+        "default": "./dist/createLogger.js"
+      },
+      "import": {
+        "types": "./dist/createLogger.d.mts",
+        "default": "./dist/createLogger.mjs"
+      }
+    },
+    "./createTransport": {
+      "require": {
+        "types": "./dist/createTransport.d.ts",
+        "default": "./dist/createTransport.js"
+      },
+      "import": {
+        "types": "./dist/createTransport.d.mts",
+        "default": "./dist/createTransport.mjs"
+      }
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "tsup-node --watch",
     "build": "tsup-node",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
+    "format": "pnpx @biomejs/biome format",
+    "lint": "pnpx @biomejs/biome lint",
+    "check": "pnpx @biomejs/biome check",
     "test": "mocha",
-    "prepublishOnly": "run-p lint build",
+    "prepublishOnly": "run-p lint check build",
     "postpublish": "pnpm version --no-git-tag-version patch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shellicar/pino-applicationinsights-transport.git"
   },
-  "keywords": [
-    "pino",
-    "azure",
-    "insights",
-    "applicationinsights",
-    "transport",
-    "logging"
-  ],
+  "keywords": ["pino", "azure", "insights", "applicationinsights", "transport", "logging"],
   "author": "Stephen Hellicar",
   "license": "MIT",
   "devDependencies": {
+    "@biomejs/biome": "^1.9.2",
     "@types/mocha": "^10.0.8",
     "@types/node": "^22.5.5",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
-    "eslint": "^9.11.0",
-    "eslint-plugin-import": "^2.29.0",
     "globals": "^15.9.0",
     "logform": "^2.6.1",
     "mocha": "^10.7.3",
     "npm-run-all": "^4.1.5",
     "pino": "^9.4.0",
     "pino-pretty": "^11.2.2",
+    "pkgroll": "^2.5.0",
     "terser": "^5.33.0",
     "testdouble": "^3.20.2",
     "tsup": "^8.3.0",
-    "typescript": "^5.6.2",
+    "typescript": "^5.6.2"
+  },
+  "optionalDependencies": {
     "applicationinsightsv2": "npm:applicationinsights@^2",
     "applicationinsightsv3": "npm:applicationinsights@^3"
   },

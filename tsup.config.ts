@@ -5,17 +5,16 @@ export default defineConfig((config) => {
   return {
     format: ['esm', 'cjs'],
     bundle: true,
-    clean: config.watch ? false : true,
+    clean: !config.watch,
     minify: config.watch ? false : 'terser',
     dts: true,
-    entry: [ 'src/index.ts' ],
+    entry: ['src/index.ts', 'src/createLogger.ts', 'src/createTransport.ts'],
     keepNames: true,
     outDir: 'dist',
     platform: 'node',
     target: 'node20',
-    treeshake: true,
     sourcemap: true,
-    splitting: config.watch ? false : true,
+    splitting: !config.watch,
     tsconfig: './tsconfig.json',
   };
 });

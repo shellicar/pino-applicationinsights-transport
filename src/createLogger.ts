@@ -1,13 +1,13 @@
-import { pino, type DestinationStream, type Level, type LevelWithSilentOrString, type LoggerOptions, type StreamEntry } from 'pino';
+import { type DestinationStream, type Level, type LevelWithSilentOrString, type LoggerOptions, type StreamEntry, pino } from 'pino';
 import { PinoPretty } from 'pino-pretty';
-import { createTransport } from './createTransport';
 import type { PinoApplicationInsightsTransportOptions } from './PinoApplicationInsightsTransport';
+import { createTransport } from './createTransport';
 
 export type CreateLoggerOptions = {
   insights: PinoApplicationInsightsTransportOptions;
   pino?: LoggerOptions;
   console?: boolean;
-}
+};
 
 export const createLogger = (options: CreateLoggerOptions) => {
   const streams: StreamEntry<LevelWithSilentOrString>[] = [];
