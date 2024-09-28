@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext",
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true
+    "isolatedModules": true
   },
   "exclude": [
     "dist/",

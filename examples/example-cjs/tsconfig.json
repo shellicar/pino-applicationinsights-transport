@@ -5,8 +5,9 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "target": "ESNext",
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "skipLibCheck": true
   }
 }

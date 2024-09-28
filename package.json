@@ -1,11 +1,8 @@
 {
   "name": "@shellicar/pino-applicationinsights-transport",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Azure Application Insights transport for pino",
-  "files": [
-    "dist"
-  ],
   "packageManager": "pnpm@9.11.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -26,9 +23,12 @@
       "require": "./dist/*.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup",
+    "dev": "tsup-node --watch",
+    "build": "tsup-node",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "test": "mocha",
@@ -70,9 +70,7 @@
     "applicationinsightsv3": "npm:applicationinsights@^3"
   },
   "peerDependencies": {
-    "pino": "^9.0.0"
-  },
-  "dependencies": {
+    "pino": "^9.0.0",
     "pino-abstract-transport": "^2.0.0"
   },
   "bugs": {

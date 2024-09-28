@@ -1,6 +1,6 @@
 import type { TelemetryClient as TelemetryClientV2 } from 'applicationinsightsv2';
-import { KnownSeverityLevel, type ExceptionTelemetry as ExceptionTelemetryV3, type TelemetryClient as TelemetryClientV3, type TraceTelemetry as TraceTelemetryV3 } from 'applicationinsightsv3';
-import { SeverityLevel, type ExceptionTelemetry as ExceptionTelemetryV2, type TraceTelemetry as TraceTelemetryV2 } from 'applicationinsightsv2/out/Declarations/Contracts';
+import type { KnownSeverityLevel, ExceptionTelemetry as ExceptionTelemetryV3, TelemetryClient as TelemetryClientV3, TraceTelemetry as TraceTelemetryV3 } from 'applicationinsightsv3';
+import type { SeverityLevel, ExceptionTelemetry as ExceptionTelemetryV2, TraceTelemetry as TraceTelemetryV2 } from 'applicationinsightsv2/out/Declarations/Contracts';
 import { levels, type Level, type LevelWithSilentOrString } from 'pino';
 
 
@@ -24,21 +24,21 @@ export type PinoApplicationInsightsTransportOptions = {
 }
 
 const severityMapV2: Record<LevelWithSilentOrString, SeverityLevel | undefined> = {
-  trace: SeverityLevel.Verbose,
-  debug: SeverityLevel.Verbose,
-  info: SeverityLevel.Information,
-  warn: SeverityLevel.Warning,
-  error: SeverityLevel.Error,
-  fatal: SeverityLevel.Critical,
+  trace: 0,
+  debug: 0,
+  info: 1,
+  warn: 2,
+  error: 3,
+  fatal: 4,
   silent: undefined,
 };
 const severityMapV3: Record<LevelWithSilentOrString, KnownSeverityLevel | undefined> = {
-  trace: KnownSeverityLevel.Verbose,
-  debug: KnownSeverityLevel.Verbose,
-  info: KnownSeverityLevel.Information,
-  warn: KnownSeverityLevel.Warning,
-  error: KnownSeverityLevel.Error,
-  fatal: KnownSeverityLevel.Critical,
+  trace: 'Verbose' as KnownSeverityLevel,
+  debug: 'Verbose' as KnownSeverityLevel,
+  info: 'Information' as KnownSeverityLevel,
+  warn: 'Warning' as KnownSeverityLevel,
+  error: 'Error' as KnownSeverityLevel,
+  fatal: 'Critical' as KnownSeverityLevel,
   silent: undefined,
 };
 

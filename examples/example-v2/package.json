@@ -6,7 +6,7 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup-node",
     "dev": "tsx src/main.ts",
     "start": "node ."
   },
@@ -14,11 +14,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^22.7.4",
+    "tsup": "^8.3.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   },
   "dependencies": {
     "@shellicar/pino-applicationinsights-transport": "link:../..",
-    "applicationinsights": "2"
+    "applicationinsights": "2",
+    "pino": "^9.4.0",
+    "pino-abstract-transport": "^2.0.0"
   }
 }
